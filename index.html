@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#101a27" />
+  <title>Mythbound — Wildcard Journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="app" class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Mythbound home"><span class="brand-mark">✦</span><span>MYTHBOUND</span></a>
+      <div class="top-meta"><span class="run-tag"><i></i> WILDCARD JOURNEY</span><button class="icon-btn" id="soundBtn" aria-label="Toggle sound">♫</button><button class="icon-btn help-btn" id="helpBtn" aria-label="How to play">?</button></div>
+    </header>
+    <section id="game" class="game-layout">
+      <aside class="side-panel">
+        <div class="run-card">
+          <div class="eyebrow">YOUR JOURNEY</div>
+          <div class="run-title">The Verdant<br>Frontier</div>
+          <div class="progress-line"><span id="progressFill"></span></div>
+          <div class="progress-caption"><span id="floorLabel">FLOOR 1 / 4</span><span id="regionLabel">SUNLIT GLEN</span></div>
+        </div>
+        <div class="party-card">
+          <div class="section-heading"><span>YOUR PARTY</span><span class="muted" id="partyCount">01 / 04</span></div>
+          <div id="partyList" class="party-list"></div>
+        </div>
+        <div class="deck-card">
+          <div class="section-heading"><span>DECK</span><span class="deck-count" id="deckCount">10</span></div>
+          <div class="deck-sub">Cards ready for battle</div>
+          <button class="text-action" id="deckBtn">VIEW DECK <span>↗</span></button>
+        </div>
+        <div class="sidebar-foot"><span class="gold-dot"></span><span>Trail Tokens</span><strong id="tokenCount">3</strong></div>
+      </aside>
+
+      <section class="battle-area" aria-label="Battle">
+        <div class="battle-topline">
+          <div class="encounter-label"><span class="pulse-dot"></span><span id="encounterName">WILD ENCOUNTER</span></div>
+          <div class="battle-actions"><button class="small-pill" id="mapBtn">⌁ &nbsp; MAP</button><button class="small-pill" id="runBtn">Ⅱ &nbsp; MENU</button></div>
+        </div>
+        <div class="arena" id="arena">
+          <div class="sky-glow"></div><div class="sun-orb"></div>
+          <div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+          <div class="distant-hills"></div><div class="near-hills"></div>
+          <div class="arena-ground"></div>
+          <div class="battle-label enemy-label"><span id="enemyName">Mossling</span><span class="level-tag" id="enemyLevel">LV. 3</span></div>
+          <div class="enemy-hp-wrap"><div class="hp-track"><span id="enemyHpFill"></span></div><div class="hp-numbers"><span>VITALITY</span><b id="enemyHpText">34 / 34</b></div></div>
+          <div class="enemy-sprite" id="enemySprite" aria-label="Wild creature">🍃</div>
+          <div class="enemy-shadow"></div>
+          <div class="enemy-intent" id="enemyIntent"><span class="intent-icon">⚔</span><span id="intentText">12</span></div>
+          <div class="player-sprite" id="playerSprite" aria-label="Your adventurer">🧙🏻‍♀️</div><div class="player-shadow"></div>
+          <div class="player-hud"><div class="player-name">TRAILBLAZER <span>LV. 1</span></div><div class="hp-track player-track"><span id="playerHpFill"></span></div><div class="player-hp-text"><span>♥ <b id="playerHpText">72 / 72</b></span><span class="shield-text">⬟ <b id="blockText">0</b></span></div></div>
+          <div class="catch-hint" id="catchHint">LOW VITALITY — A good time to catch!</div>
+          <div class="toast" id="toast" role="status"></div>
+        </div>
+        <div class="battle-bottom">
+          <div class="combat-stats">
+            <div class="energy-wrap"><div class="energy-orb" id="energyOrb"><span id="energyText">3</span></div><div><div class="stat-name">ENERGY</div><div class="stat-sub">refreshes each turn</div></div></div>
+            <div class="turn-info"><span class="turn-dot"></span><span id="turnLabel">YOUR TURN</span></div>
+            <div class="draw-info"><span>DRAW PILE</span><b id="drawCount">5</b></div>
+          </div>
+          <div class="hand-row" id="hand" aria-label="Your cards"></div>
+          <div class="action-row"><div class="hand-help"><span>✦</span> Tap a card to play it</div><button id="endTurnBtn" class="end-turn"><span>END TURN</span><b>→</b></button></div>
+        </div>
+      </section>
+      <aside class="right-panel">
+        <div class="objective-card"><div class="objective-icon">✧</div><div><div class="eyebrow">TODAY'S TRAIL</div><div class="objective-title">Catch the<br>unfamiliar.</div></div><div class="objective-foot"><span>CAPTURE BONUS</span><strong>+1 <small>trail token</small></strong></div></div>
+        <div class="log-card"><div class="section-heading"><span>BATTLE LOG</span><span class="log-live">LIVE</span></div><div class="log-list" id="battleLog"></div></div>
+        <div class="tip-card"><span class="tip-icon">✦</span><div><b>Trail tip</b><p>Weaken a wild creature before using a capture card. Your new companion joins your deck!</p></div></div>
+      </aside>
+    </section>
+    <section id="overlay" class="overlay hidden" aria-modal="true" role="dialog"><div class="modal" id="modal"></div></section>
+    <div id="mobileDock" class="mobile-dock"><span>♥ <b id="mobileHp">72</b></span><span>✦ <b id="mobileEnergy">3</b></span><button id="mobileEnd">END TURN →</button></div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
